@@ -1,6 +1,14 @@
-using MinimalAPIS.Dominio.DTOs;
+using Microsoft.EntityFrameworkCore;
+using MinimalAPIS.DTOs;
+using MinimalAPIS.Infraestrutura.Db;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<DbContexto>(options => {
+    options.UseMySql(builder.Configuration.GetConnectionString("ConexaoPadrao"), 
+    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("ConexaoPadrao")));
+});
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");

@@ -1,7 +1,31 @@
-namespace MinimalAPIS.Infraestrutura.Db
+using Microsoft.EntityFrameworkCore;
+using MinimalAPIS.Dominio.Entidades;
+
+namespace MinimalAPIS.Infraestrutura.Db;
+
+public class DbContexto : DbContext
 {
-    public class DbContexto
+    private readonly IConfiguration _configuracaoAppSettings;
+    public DbContexto(IConfiguration configuracaoAppSettings)
     {
-        
+        _configuracaoAppSettings = configuracaoAppSettings;
+    }
+
+    public DbSet<Administrador> Administradores { get; set; } = default!;
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if(!optionsBuilder.IsConfigured)
+        {
+            var stringConexao = _configuracaoAppSettings.GetConnectionString("ConexaoPadrao")?.ToString();
+            if(!string.IsNullOrEmpty(stringConexao))
+            {
+                optionsBuilder.UseMySql(
+                    stringConexao,
+                    ServerVersion.AutoDetect(stringConexao)
+                );
+            }
+        }
     }
 }
+
