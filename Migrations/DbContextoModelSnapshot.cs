@@ -34,10 +34,8 @@ namespace MinimalAPIS.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("Perfil")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)");
+                    b.Property<byte>("Perfil")
+                        .HasColumnType("tinyint unsigned");
 
                     b.Property<string>("Senha")
                         .IsRequired()
@@ -53,7 +51,7 @@ namespace MinimalAPIS.Migrations
                         {
                             Id = 1,
                             Email = "administrador@teste.com",
-                            Perfil = "Adm",
+                            Perfil = (byte)0,
                             Senha = "123456"
                         });
                 });

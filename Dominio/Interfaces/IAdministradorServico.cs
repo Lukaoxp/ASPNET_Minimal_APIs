@@ -7,5 +7,7 @@ namespace MinimalAPIS.Dominio.Interfaces
     {
         Administrador? Login(LoginDTO loginDTO);
         List<Administrador> Todos(int? pagina);
+        Administrador Incluir(Administrador administrador);
+        Administrador? BuscaPorId(int id);
     }
 }

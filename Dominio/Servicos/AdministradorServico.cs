@@ -12,6 +12,7 @@ namespace MinimalAPIS.Dominio.Servicos
         {
             _contexto = contexto;
         }
+
         public Administrador? Login(LoginDTO loginDTO)
         {
             var adm = _contexto.Administradores.Where(a => a.Email == loginDTO.Email && a.Senha == loginDTO.Senha).FirstOrDefault();
@@ -28,6 +29,18 @@ namespace MinimalAPIS.Dominio.Servicos
                 query = query.Skip(((int)pagina - 1) * itensPorPagina).Take(itensPorPagina);
 
             return [.. query];
+        }
+
+        public Administrador Incluir(Administrador administrador)
+        {
+            _contexto.Administradores.Add(administrador);
+            _contexto.SaveChanges();
+
+            return administrador;
+        }
+
+        public Administrador? BuscaPorId(int id){
+             return _contexto.Administradores.Where(x=> x.Id == id).FirstOrDefault();
         }
     }
 }

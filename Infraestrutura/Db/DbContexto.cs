@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MinimalAPIS.Dominio.Entidades;
+using MinimalAPIS.Dominio.Enums;
 
 namespace MinimalAPIS.Infraestrutura.Db;
 
@@ -21,7 +22,7 @@ public class DbContexto : DbContext
                 Id = 1,
                 Email = "administrador@teste.com",
                 Senha = "123456",
-                Perfil = "Adm"
+                Perfil = Perfil.Adm
             }
         );
     }
